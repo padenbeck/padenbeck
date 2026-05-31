@@ -1,0 +1,23 @@
+# Paden Beck — padenbeck.com
+
+Paden Beck is an 18-year-old founder based in Gilbert, Arizona, building companies at the intersection of premium software and applied AI.
+
+## About
+
+Paden operates across two ventures: a boutique client studio and a B2B SaaS platform. He focuses on implementation — writing code and shipping products — rather than advising. His work spans compliance technology, conversion-focused web development, and AI systems integration for small and growth-stage businesses.
+
+## Companies
+
+### Vigis — vigis.ai
+AI-powered regulatory compliance monitoring platform. Vigis scans 10,000+ federal and state regulations and delivers plain-English alerts to small business owners within hours of any change, filtered by their location, industry, and company size. Covers all 50 US states.
+
+### Recorou — recorou.com
+Boutique web development and AI systems studio serving Arizona's growth-stage businesses. Recorou builds conversion-optimized websites and custom AI workflow automations — implementation, not recommendations.
+
+## Contact
+
+- Website: https://padenbeck.com
+- LinkedIn: https://www.linkedin.com/in/padenbeck/
+- Instagram: https://instagram.com/padenbeck
+- X / Twitter: https://x.com/padenbeck
+- Location: Gilbert, Arizona, USA

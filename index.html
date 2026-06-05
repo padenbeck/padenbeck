@@ -55,6 +55,7 @@
         "https://www.linkedin.com/in/padenbeck/",
         "https://instagram.com/padenbeck",
         "https://x.com/padenbeck",
+        "https://www.crunchbase.com/person/paden-beck",
         "https://vigis.ai",
         "https://recorou.com"
       ],
@@ -476,52 +477,118 @@
       line-height: 1.6;
     }
 
-    .contact-list {
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .contact-card {
+      position: relative;
+      background: var(--surface);
+      padding: clamp(1.6rem, 4vw, 2.25rem);
+      min-height: 168px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.5rem;
+      text-decoration: none;
+      overflow: hidden;
+      transition: background 0.3s ease;
+    }
+
+    /* Accent underline grows in on hover — matches company cards */
+    .contact-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.45s var(--ease-out-expo);
+    }
+
+    .contact-card:hover { background: var(--surface-hover); }
+    .contact-card:hover::after,
+    .contact-card:focus-visible::after { width: 100%; }
+    .contact-card:focus-visible {
+      outline: none;
+      background: var(--surface-hover);
+    }
+
+    .contact-card-icon {
+      display: block;
+      color: var(--text-muted);
+      transition:
+        color 0.35s ease,
+        transform 0.55s var(--ease-out-expo);
+    }
+
+    .contact-card-icon svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+
+    .contact-card:hover .contact-card-icon,
+    .contact-card:focus-visible .contact-card-icon {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .contact-card-body {
       display: flex;
       flex-direction: column;
     }
 
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      padding-block: 1rem;
-      border-bottom: 1px solid var(--border);
-      text-decoration: none;
-      transition: border-color 0.2s ease;
-    }
-
-    .contact-item:first-child { border-top: 1px solid var(--border); }
-    .contact-item:hover { border-color: var(--border-hover); }
-    .contact-item:hover { border-bottom-color: rgba(255,255,255,0.15); }
-
-    .contact-channel {
-      font-size: 0.6rem;
+    .contact-card-name {
+      font-size: 0.7rem;
+      font-weight: 500;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--text-muted);
-      width: 5.5rem;
-      flex-shrink: 0;
+      color: var(--text);
+      transition: color 0.3s ease;
     }
 
-    .contact-value {
-      font-size: 0.875rem;
+    /* Hidden by default — revealed on hover with a smooth slide-up */
+    .contact-card-value {
+      display: block;
+      font-size: 0.8rem;
       color: var(--text-secondary);
-      transition: color 0.2s ease;
-      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      opacity: 0;
+      max-height: 0;
+      margin-top: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition:
+        opacity   0.45s var(--ease-out-expo),
+        transform 0.45s var(--ease-out-expo),
+        max-height 0.45s var(--ease-out-expo),
+        margin-top 0.45s var(--ease-out-expo);
     }
 
-    .contact-item:hover .contact-value { color: var(--text); }
-
-    .contact-arrow {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      transition: transform 0.2s ease, color 0.2s ease;
+    .contact-card:hover .contact-card-value,
+    .contact-card:focus-visible .contact-card-value {
+      opacity: 1;
+      max-height: 2rem;
+      margin-top: 0.45rem;
+      transform: none;
     }
 
-    .contact-item:hover .contact-arrow {
-      transform: translate(3px, -3px);
-      color: var(--accent);
+    /* Touch devices have no hover — keep values visible & accessible */
+    @media (hover: none) {
+      .contact-card-value {
+        opacity: 1;
+        max-height: 2rem;
+        margin-top: 0.45rem;
+        transform: none;
+      }
     }
 
     /* ─── FOOTER ─────────────────────────────────────── */
@@ -572,7 +639,8 @@
         aspect-ratio: 1;
       }
 
-      #companies .companies-grid {
+      #companies .companies-grid,
+      #contact .contact-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -702,34 +770,55 @@
       <p class="contact-intro reveal">
         Open to conversations about software, startups, and what comes next.
       </p>
-      <nav class="contact-list" aria-label="Contact links">
-        <a href="mailto:paden@recorou.com" class="contact-item reveal">
-          <span class="contact-channel">Email</span>
-          <span class="contact-value">paden@recorou.com</span>
-          <span class="contact-arrow" aria-hidden="true">↗</span>
+      <nav class="contact-grid" aria-label="Contact links">
+
+        <a href="mailto:paden@recorou.com" class="contact-card reveal" aria-label="Email — paden@recorou.com">
+          <span class="contact-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 6.5 9 6 9-6"/></svg>
+          </span>
+          <span class="contact-card-body">
+            <span class="contact-card-name">Email</span>
+            <span class="contact-card-value">paden@recorou.com</span>
+          </span>
         </a>
-        <a href="https://www.linkedin.com/in/padenbeck/" target="_blank" rel="noopener noreferrer" class="contact-item reveal reveal-d1">
-          <span class="contact-channel">LinkedIn</span>
-          <span class="contact-value">linkedin.com/in/padenbeck</span>
-          <span class="contact-arrow" aria-hidden="true">↗</span>
+
+        <a href="https://www.linkedin.com/in/padenbeck/" target="_blank" rel="noopener noreferrer" class="contact-card reveal reveal-d1" aria-label="LinkedIn — linkedin.com/in/padenbeck">
+          <span class="contact-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zm6 0h3.8v1.65h.05c.53-1 1.83-2.05 3.76-2.05 4.02 0 4.76 2.64 4.76 6.08V21h-4v-5.3c0-1.27-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>
+          </span>
+          <span class="contact-card-body">
+            <span class="contact-card-name">LinkedIn</span>
+            <span class="contact-card-value">linkedin.com/in/padenbeck</span>
+          </span>
         </a>
-        <a href="https://instagram.com/padenbeck" target="_blank" rel="noopener noreferrer" class="contact-item reveal reveal-d2">
-          <span class="contact-channel">Instagram</span>
-          <span class="contact-value">@padenbeck</span>
-          <span class="contact-arrow" aria-hidden="true">↗</span>
+
+        <a href="https://instagram.com/padenbeck" target="_blank" rel="noopener noreferrer" class="contact-card reveal reveal-d2" aria-label="Instagram — @padenbeck">
+          <span class="contact-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+          </span>
+          <span class="contact-card-body">
+            <span class="contact-card-name">Instagram</span>
+            <span class="contact-card-value">@padenbeck</span>
+          </span>
         </a>
-        <a href="https://x.com/padenbeck" target="_blank" rel="noopener noreferrer" class="contact-item reveal reveal-d3">
-          <span class="contact-channel">X</span>
-          <span class="contact-value">@padenbeck</span>
-          <span class="contact-arrow" aria-hidden="true">↗</span>
+
+        <a href="https://x.com/padenbeck" target="_blank" rel="noopener noreferrer" class="contact-card reveal reveal-d3" aria-label="X — @padenbeck">
+          <span class="contact-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.05l-6.66 7.62L21.75 21h-6.13l-4.8-6.28L5.3 21H2.25l7.13-8.15L2 3h6.28l4.34 5.74L17.5 3zm-1.07 16.18h1.69L7.65 4.73H5.84z"/></svg>
+          </span>
+          <span class="contact-card-body">
+            <span class="contact-card-name">X</span>
+            <span class="contact-card-value">@padenbeck</span>
+          </span>
         </a>
+
       </nav>
     </div>
   </section>
 
   <!-- ── FOOTER ── -->
   <footer>
-    <p>© 2025 Paden Beck</p>
+    <p>© 2026 Paden Beck</p>
     <p>Gilbert, Arizona</p>
   </footer>
 
